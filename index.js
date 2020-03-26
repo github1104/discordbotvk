@@ -1,6 +1,6 @@
 const { Client,MessageEmbed,Collection } = require('discord.js');
 
-const { prefix,token} = require('./config.json')
+const { prefix,token,tokenTest} = require('./config.json')
 const client = new Client({
     disableEveryone: true
 });
@@ -36,9 +36,8 @@ client.on("message",async message =>{
     }
 
     if(cmd === "say"){
-        if (message.deletable) message.delete();
 
-        if(args.length < 1)
+        if(!args.length)
             return message.reply("Nothing to say?").then(m=>m.delete(5000));
         const roleColor = message.guild.me.displayHexColor === "#000000" ? "#ffffff" : message.guild.me.displayHexColor;
         
