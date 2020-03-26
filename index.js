@@ -15,7 +15,7 @@ client.on("ready",()=>{
     client.user.setPresence({
         status: 'online',
         activity: {
-            name: 'co don som toi',
+            name: 'YOU',
             type: 'WATCHING'
         }
     })
