@@ -21,7 +21,7 @@ client.on("ready",()=>{
     })
 });
 
-client.on("message",async message =>{
+client.on("message", message =>{
 
     if(!message.guild) return;
     if(!message.content.startsWith(prefix) || message.author.bot) return;
