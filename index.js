@@ -15,8 +15,8 @@ client.on("ready", () => {
     client.user.setPresence({
         status: 'online',
         activity: {
-            name: 'YOU',
-            type: 'WATCHING'
+            name: 'vô địch vũ trụ no 1',
+            type: 'HAMI'
         }
     })
 });
