@@ -1,13 +1,21 @@
+const fs = require('fs');
 const { Client, MessageEmbed, Collection } = require('discord.js');
-
 const { prefix } = require('./config.json')
 const client = new Client({
     disableEveryone: true
 });
 
 client.commands = new Collection();
-client.aliases = new Collection();
+const commandsFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+const cooldowns = new Collection();
 
+for (const file of commandsFiles) {
+    const command = require(`./commands/${file}`)
+
+    // set a new item in the Collection
+    // with the key as the command name and the value as the exported module
+    client.commands.set(command.name, command);
+}
 
 client.on("ready", () => {
     console.log('Bot is online! my name is' + client.user.username);
@@ -27,39 +35,47 @@ client.on("message", async message => {
     if (!message.content.startsWith(prefix) || message.author.bot) return;
 
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
-    const cmd = args.shift().toLowerCase();
+    const commandName = args.shift().toLowerCase();
 
-    if (cmd === "ping") {
-        try {
-            const msg = await message.channel.send(' Pinging...');
+    const command = client.commands.get(commandName)
+    || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
-            msg.edit(`Pong!\nPing is ${Math.floor(msg.createdAt - message.createdAt)}ms`);
-        } catch (error) {
-            console.log(error)
-        }
+    if (!command) return;
+
+    if (!cooldowns.has(command.name)) {
+        cooldowns.set(command.name, new Collection());
     }
+    const now = Date.now();
+    const timestamps = cooldowns.get(command.name);
+    const cooldownAmount = (command.cooldown || 3) * 1000;
 
-    if (cmd === "say") {
 
-        if (!args.length)
-            return message.reply("Nothing to say?").then(m => m.delete(5000));
-        const roleColor = message.guild.me.displayHexColor === "#000000" ? "#ffffff" : message.guild.me.displayHexColor;
+    if (timestamps.has(message.author.id)) {
 
-        if (args[0].toLowerCase() === "embed") {
-            const embed = new MessageEmbed()
-                .setColor(roleColor)
-                .setDescription(args.slice(1).join(" "))
-                .setTimestamp()
-                .setImage(client.user.displayAvatarURL())
-                .setAuthor(message.author.username, message.author.displayAvatarURL())
-                .setFooter(client.user.username, client.user.displayAvatarURL())
-            message.channel.send(embed);
+        const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
+        timestamps.set(message.author.id, now);
+        setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
+        if (now < expirationTime) {
+
+            const timeLeft = (expirationTime - now) / 1000;
+            return message.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
         }
 
     }
 
-    if (cmd === "server") {
-        message.channel.send(`This server is : ${message.guild.name}\nTotal members: ${message.guild.memberCount}`);
+    if (command.args && !args.length) {
+        let reply = `You didn't provide any arguments, ${message.author}!`;
+
+        if (command.usage) {
+            reply += `\nThe proper usage would be: \`${prefix}${command.name} ${command.usage}\``;
+        }
+
+        return message.channel.send(reply);
+    }
+    try {
+        command.execute(message, args);
+    } catch (err) {
+        console.log(err)
     }
 
 });
