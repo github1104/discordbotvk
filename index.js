@@ -33,19 +33,20 @@ client.on("ready", () => {
 // member joinNout
 var textWelcome = 'hello';
 var textRemove = 'bye';
-
+var textWelcome2 = '';
+var textRemove2 = '';
 client.on("guildMemberAdd", member => {
-    client.channels.fetch('446685396458536972')
+    client.channels.fetch('615758011742421004')
         .then(channel => {
-            channel.send(`${textWelcome} <@${member.id}>`);
+            channel.send(`${textWelcome} <@${member.id}> ${textWelcome2}`);
         })
         .catch()
 })
 
 client.on("guildMemberRemove", member => {
-    client.channels.fetch('446685396458536972')
+    client.channels.fetch('615758011742421004')
         .then(channel => {
-            channel.send(`${textRemove} <@${member.id}>`);
+            channel.send(`${textRemove} <@${member.id}> ${textRemove2}`);
         })
         .catch()
 })
