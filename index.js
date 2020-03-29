@@ -3,14 +3,14 @@ const { Client, MessageEmbed, Collection } = require('discord.js');
 const { prefix } = require('./config.json')
 const client = new Client({
     disableEveryone: true
-});
+}); 
 
 client.commands = new Collection();
 const commandsFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 const cooldowns = new Collection();
 
 for (const file of commandsFiles) {
-    const command = require(`./commands/${file}`)
+    const command = require(`./commands/${file}`);
 
     // set a new item in the Collection
     // with the key as the command name and the value as the exported module
@@ -27,7 +27,29 @@ client.on("ready", () => {
             type: 'WATCHING'
         }
     })
+
+
 });
+// member joinNout
+var textWelcome = 'hello';
+var textRemove = 'bye';
+
+client.on("guildMemberAdd", member => {
+    client.channels.fetch('446685396458536972')
+        .then(channel => {
+            channel.send(`${textWelcome} <@${member.id}>`);
+        })
+        .catch()
+})
+
+client.on("guildMemberRemove", member => {
+    client.channels.fetch('446685396458536972')
+        .then(channel => {
+            channel.send(`${textRemove} <@${member.id}>`);
+        })
+        .catch()
+})
+
 
 client.on("message", async message => {
 
@@ -37,8 +59,10 @@ client.on("message", async message => {
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const commandName = args.shift().toLowerCase();
 
+
     const command = client.commands.get(commandName)
-    || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+        || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+
 
     if (!command) return;
 
@@ -78,6 +102,17 @@ client.on("message", async message => {
         console.log(err)
     }
 
+    if(command.args ){
+        if(command.name === 'setwel'){
+            textWelcome = message.content.slice(prefix.length).trim().replace('setwel ','');
+            console.log(command.name)
+        } 
+        else if(command.name === 'setremove'){
+            textRemove = message.content.slice(prefix.length).trim().replace('setremove ','');
+            console.log(command.name)
+        }
+    }
+    
 });
 
 client.login(process.env.BOT_TOKEN);
