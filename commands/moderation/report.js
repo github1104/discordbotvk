@@ -7,7 +7,7 @@ module.exports = {
     description: 'Report a member',
     usage: '<mention | id>',
     run: async (client, message, args) => {
-        if (message.deletable) message.delete();
+        if (message.deletable) message.delete({ timeout: 5000 });
 
         let rMember;
         if (message.mentions.users.size) {
@@ -24,7 +24,7 @@ module.exports = {
         if (!args[1])
             return message.channel.send("Please provide a reason for the report!").then(m => m.delete({ timeout: 5000 }));
 
-        const channel = message.guild.channels.cache.find(channel => channel.name === "reports");
+        const channel = message.guild.channels.cache.find(channel => channel.name === "reports-ban");
 
         if (!channel)
             return message.channel.send("I count not find a \`#report\` channel").then(m => m.delete({ timeout: 5000 }));
