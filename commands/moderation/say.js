@@ -7,6 +7,7 @@ module.exports = {
     usage: "<input>",
     cooldown: 5,
     run: async (client, message, args) => {
+        console.log('deletable message',message.deletable)
         if (message.deletable) message.delete();
 
         if (args.length < 1)
@@ -17,9 +18,8 @@ module.exports = {
         const embed = new MessageEmbed()
             .setColor("RANDOM")
             .setTimestamp()
-            .setAuthor(message.member.displayName, message.author.displayAvatarURL({ format: 'png' }))
             .setDescription(args.join(" "))
-            
+
         message.channel.send(embed);
 
 
