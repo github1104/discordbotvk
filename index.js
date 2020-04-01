@@ -1,12 +1,13 @@
 const { Client, MessageEmbed, Collection } = require('discord.js');
-const { prefix } = require('./config.json')
+const { prefix } = require('./config.json');
+const fs = require("fs");
 const client = new Client({
     disableEveryone: true
 }); 
 
 client.commands = new Collection();
 client.aliases = new Collection();
-
+client.categories = fs.readdirSync("./commands/");
 
 ["command"].forEach(handler => {
     require(`./handler/${handler}`)(client);
@@ -19,8 +20,8 @@ client.on("ready", () => {
     client.user.setPresence({
         status: 'online',
         activity: {
-            name: 'YOU',
-            type: 'WATCHING'
+            name: '_h for help',
+            type: 'PLAYING'
         }
     })
 

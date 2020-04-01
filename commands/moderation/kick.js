@@ -87,11 +87,11 @@ module.exports = {
             }
             const resultEmbed = new MessageEmbed()
                 .setColor("#ff00ff")
-                .setAuthor("Result of vote")
+                .setAuthor(`Result of vote kick ${toKick}`)
                 .setDescription(stripIndents`✅: ${resultYes}
                 ❌: ${resultNo}
-                **> Result:** ${resultYes<resultNo ? "kick be canceled":"kicked member"}`);
-
+                **> Result:** ${resultYes<resultNo ? "kick be canceled":"kicked member"}`)
+                .setFooter(message.member.displayName, message.author.displayAvatarURL({ format: 'png' }))
             logChannel.send(resultEmbed);
             if (resultYes > resultNo) {
                 toKick.kick(args.slice(1).join(" "))
