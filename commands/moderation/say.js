@@ -17,8 +17,9 @@ module.exports = {
         const embed = new MessageEmbed()
             .setColor("RANDOM")
             .setTimestamp()
-            .setAuthor(message.member.displayName, client.user.displayAvatarURL({ format: 'png' }))
+            .setAuthor(message.member.displayName, message.author.displayAvatarURL({ format: 'png' }))
             .setDescription(args.join(" "))
+            
         message.channel.send(embed);
 
 
