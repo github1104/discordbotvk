@@ -72,10 +72,10 @@ module.exports = {
             **> Reason:** ${args.slice(1).join(" ")}`);
 
         logChannel.send(promptEmbed).then(async msg => {
-            await promptMessage(msg, message.author, 60, ["✅", "❌"]);
+            await promptMessage(msg, message.author, 3, ["✅", "❌"]);
             let resultYes = 1;
             let resultNo = 1;
-
+            
             for (let react of msg.reactions.cache) {
                 console.log(77, react[0], react[1].count)
                 if (react[0] === "✅") {
@@ -84,6 +84,14 @@ module.exports = {
                     resultNo = react[1].count;
                 }
             }
+            const resultEmbed = new MessageEmbed()
+                .setColor("#ff00ff")
+                .setAuthor("Result of vote")
+                .setDescription(stripIndents`✅: ${resultYes}
+                ❌: ${resultNo}
+                **> Result:** ${resultYes<resultNo ? "kick be canceled":"kicked member"}`);
+
+            logChannel.send(resultEmbed);
             if (resultYes > resultNo) {
                 toKick.kick(args.slice(1).join(" "))
                     .catch(err => {
@@ -91,7 +99,6 @@ module.exports = {
                     })
                 logChannel.send(embed);
             } else {
-
                 message.reply("kick canceled...")
                     .then(m => m.delete({ timeout: 5000 }));
             }
