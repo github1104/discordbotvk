@@ -25,7 +25,7 @@ module.exports = {
         }
 
         //no bot permissions
-        if (!message.guild.me.hasPermission("KICK_MEMBERD")) {
+        if (!message.guild.me.hasPermission("KICK_MEMBERS")) {
             return message.reply("❌ I do not have permission to kick members. Please contact a staff member")
                 .then(m => m.delete({ timeout: 5000 }));
         }
