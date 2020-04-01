@@ -73,7 +73,7 @@ module.exports = {
             **> Reason:** ${args.slice(1).join(" ")}`);
 
         logChannel.send(promptEmbed).then(async msg => {
-            await promptMessage(msg, message.author, 60, ["✅", "❌"]);
+            await promptMessage(msg, message.author, 1, ["✅", "❌"],50);
             let resultYes = 1;
             let resultNo = 1;
             
@@ -87,7 +87,7 @@ module.exports = {
             }
             const resultEmbed = new MessageEmbed()
                 .setColor("#ff00ff")
-                .setAuthor(`Result of vote kick ${toKick}`)
+                .setAuthor(`Result of vote kick`,toKick.user.displayAvatarURL({format:'png'}))
                 .setDescription(stripIndents`✅: ${resultYes}
                 ❌: ${resultNo}
                 **> Result:** ${resultYes<resultNo ? "kick be canceled":"kicked member"}`)
