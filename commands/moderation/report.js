@@ -34,7 +34,7 @@ module.exports = {
             .setTimestamp()
             .setThumbnail(rMember.user.displayAvatarURL({ format: 'png' }))
             .setFooter(message.guild.name, message.guild.iconURL({ format: 'png' }))
-            .setAuthor("Reported member", rMember.user.displayAvatarURL)
+            .setAuthor("Reported member", rMember.user.displayAvatarURL({format:'png'}))
             .setDescription(stripIndents`**> Member:** ${rMember} (id: ${rMember.id})
             **> Reported by:** ${message.member} (id: ${message.member.id})
             **> Reported in:** ${message.channel}
