@@ -34,7 +34,7 @@ module.exports = {
                 (me === "✌" && clientChose === "✋")) {
                 return "You win ＞﹏＜";
             }else if(me === clientChose){
-                return "nice choice !"
+                return "nice choice "
             }else{
                 return "You lose (￣_,￣ )";
             }

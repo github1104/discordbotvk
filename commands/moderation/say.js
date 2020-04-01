@@ -1,4 +1,5 @@
 const { MessageEmbed } = require("discord.js");
+
 module.exports = {
     name: "say",
     aliases: ["bc", "broadcast"],
@@ -7,13 +8,11 @@ module.exports = {
     usage: "<input>",
     cooldown: 5,
     run: async (client, message, args) => {
-        console.log('deletable message',message.deletable)
+      
         if (message.deletable) message.delete();
 
         if (args.length < 1)
-            return message.reply("Nothing to say?").then(m => m.delete(5000));
-
-
+            return message.reply("Nothing to say?").then(m => m.delete({timeout:5000}));
 
         const embed = new MessageEmbed()
             .setColor("RANDOM")

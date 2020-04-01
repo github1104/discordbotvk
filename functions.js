@@ -32,5 +32,11 @@ module.exports = {
             .then(collected => {                
                 return collected.first() && collected.first().emoji.name
             });
+    },
+
+    getEmojiByName: async function(client,emoji,server){
+        let emo = client.emojis.cache.filter(e => e.guild.name === server && e.id === emoji ).map(e=>e) 
+            || client.emojis.cache.filter(e => e.guild.name === server && e.name === name ).map(e=>e) 
+        return emo;
     }
 }
