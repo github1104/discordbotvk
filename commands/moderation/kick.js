@@ -68,11 +68,12 @@ module.exports = {
         const promptEmbed = new MessageEmbed()
             .setColor("GREEN")
             .setAuthor("This verification becomes invalid after 60s")
-            .setDescription(stripIndents`Vote to kick ${toKick}?
+            .setDescription(stripIndents`Vote to kick ${toKick}
+            **> Kicked by:** ${message.author} 
             **> Reason:** ${args.slice(1).join(" ")}`);
 
         logChannel.send(promptEmbed).then(async msg => {
-            await promptMessage(msg, message.author, 3, ["✅", "❌"]);
+            await promptMessage(msg, message.author, 60, ["✅", "❌"]);
             let resultYes = 1;
             let resultNo = 1;
             
