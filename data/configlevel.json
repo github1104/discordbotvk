@@ -1,0 +1,281 @@
+{
+  "level": [
+    {
+      "level": 1,
+      "exp": 150
+    },
+    {
+      "level": 2,
+      "exp": 280
+    },
+    {
+      "level": 3,
+      "exp": 400
+    },
+    {
+      "level": 4,
+      "exp": 550
+    },
+    {
+      "level": 5,
+      "exp": 680
+    },
+    {
+      "level": 6,
+      "exp": 890
+    },
+    {
+      "level": 7,
+      "exp": 1120
+    },
+    {
+      "level": 8,
+      "exp": 1440
+    },
+    {
+      "level": 9,
+      "exp": 1800
+    },
+    {
+      "level": 10,
+      "exp": 2200
+    },
+    {
+      "level": 11,
+      "exp": 2640
+    },
+    {
+      "level": 12,
+      "exp": 3120
+    },
+    {
+      "level": 13,
+      "exp": 3640
+    },
+    {
+      "level": 14,
+      "exp": 4200
+    },
+    {
+      "level": 15,
+      "exp": 4800
+    },
+    {
+      "level": 16,
+      "exp": 5440
+    },
+    {
+      "level": 17,
+      "exp": 6120
+    },
+    {
+      "level": 18,
+      "exp": 6840
+    },
+    {
+      "level": 19,
+      "exp": 7600
+    },
+    {
+      "level": 20,
+      "exp": 8400
+    },
+    {
+      "level": 21,
+      "exp": 9240
+    },
+    {
+      "level": 22,
+      "exp": 10120
+    },
+    {
+      "level": 23,
+      "exp": 11040
+    },
+    {
+      "level": 24,
+      "exp": 12000
+    },
+    {
+      "level": 25,
+      "exp": 13000
+    },
+    {
+      "level": 26,
+      "exp": 14040
+    },
+    {
+      "level": 27,
+      "exp": 15120
+    },
+    {
+      "level": 28,
+      "exp": 16240
+    },
+    {
+      "level": 29,
+      "exp": 17400
+    },
+    {
+      "level": 30,
+      "exp": 18600
+    },
+    {
+      "level": 31,
+      "exp": 19840
+    },
+    {
+      "level": 32,
+      "exp": 21120
+    },
+    {
+      "level": 33,
+      "exp": 22440
+    },
+    {
+      "level": 34,
+      "exp": 23800
+    },
+    {
+      "level": 35,
+      "exp": 25200
+    },
+    {
+      "level": 36,
+      "exp": 26640
+    },
+    {
+      "level": 37,
+      "exp": 28120
+    },
+    {
+      "level": 38,
+      "exp": 29640
+    },
+    {
+      "level": 39,
+      "exp": 31200
+    },
+    {
+      "level": 40,
+      "exp": 32800
+    },
+    {
+      "level": 41,
+      "exp": 34440
+    },
+    {
+      "level": 42,
+      "exp": 36120
+    },
+    {
+      "level": 43,
+      "exp": 37840
+    },
+    {
+      "level": 44,
+      "exp": 39600
+    },
+    {
+      "level": 45,
+      "exp": 41400
+    },
+    {
+      "level": 46,
+      "exp": 43240
+    },
+    {
+      "level": 47,
+      "exp": 45120
+    },
+    {
+      "level": 48,
+      "exp": 47040
+    },
+    {
+      "level": 49,
+      "exp": 49000
+    },
+    {
+      "level": 50,
+      "exp": 51000
+    },
+    {
+      "level": 51,
+      "exp": 53040
+    },
+    {
+      "level": 52,
+      "exp": 55120
+    },
+    {
+      "level": 53,
+      "exp": 57240
+    },
+    {
+      "level": 54,
+      "exp": 59400
+    },
+    {
+      "level": 55,
+      "exp": 61600
+    },
+    {
+      "level": 56,
+      "exp": 63840
+    },
+    {
+      "level": 57,
+      "exp": 66120
+    },
+    {
+      "level": 58,
+      "exp": 68440
+    },
+    {
+      "level": 59,
+      "exp": 70800
+    },
+    {
+      "level": 60,
+      "exp": 73200
+    }
+  ],
+  "rank": [
+    {
+      "minLevel":1,
+      "maxLevel":9,
+      "rank":"Iron" 
+    },
+    {
+      "minLevel":10,
+      "maxLevel":19,
+      "rank":"Bronze" 
+    },
+    {
+      "minLevel":20,
+      "maxLevel":29,
+      "rank":"Silver" 
+    },
+    {
+      "minLevel":30,
+      "maxLevel":39,
+      "rank":"Gold" 
+    },
+    {
+      "minLevel":40,
+      "maxLevel":49,
+      "rank":"Platinum" 
+    },
+    {
+      "minLevel":50,
+      "maxLevel":59,
+      "rank":"Diamond" 
+    },
+    {
+      "minLevel":60,
+      "maxLevel":69,
+      "rank":"Master" 
+    }
+  ]
+}

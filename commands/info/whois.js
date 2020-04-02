@@ -11,7 +11,6 @@ module.exports = {
     run: async (client, message, args) => {
         const member = await getMember(message, args.join(" "));
 
-        console.log(14,member)
         // Member variables
         const joined = formatDate(member.joinedAt);
 
@@ -21,7 +20,6 @@ module.exports = {
             roleMember.push(r.name)
         })
         roleMember.join(", ");
-        console.log(24, member.user.presence.activities.toString())
 
         const created = formatDate(member.user.createdAt);
 

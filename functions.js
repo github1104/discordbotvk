@@ -1,3 +1,4 @@
+const fs = require("fs");
 module.exports = {
     getMember(message, toFind = '') {
         toFind = toFind.toLowerCase();
@@ -20,23 +21,28 @@ module.exports = {
         return new Intl.DateTimeFormat('en-GB').format(date);
     },
 
-    promptMessage: async function(message,author,time, validReactions,limit){
+    promptMessage: async function (message, author, time, validReactions, limit) {
         time *= 1000;
 
-        for(const reaction of validReactions) await message.react(reaction)
+        for (const reaction of validReactions) await message.react(reaction)
 
-        const filter = (reaction,user) => validReactions.includes(reaction.emoji.name) && user.id === author.id
+        const filter = (reaction, user) => validReactions.includes(reaction.emoji.name) && user.id === author.id
 
         return message
-            .awaitReactions(filter,{max:limit,time: time})
-            .then(collected => {                
+            .awaitReactions(filter, { max: limit, time: time })
+            .then(collected => {
                 return collected.first() && collected.first().emoji.name
             });
     },
 
-    getEmojiByName: async function(client,emoji,server){
-        let emo = client.emojis.cache.filter(e => e.guild.name === server && e.id === emoji ).map(e=>e) 
-            || client.emojis.cache.filter(e => e.guild.name === server && e.name === name ).map(e=>e) 
+    getEmojiByName: async function (client, emoji, server) {
+        let emo = client.emojis.cache.filter(e => e.guild.name === server && e.id === emoji).map(e => e);
+        if (emo.length < 1) emo = client.emojis.cache.filter(e => e.guild.name === server && e.name === emoji).map(e => e);
         return emo;
+    },
+    
+    getData: async function (client,data){
+        console.log(data)
     }
+ 
 }
