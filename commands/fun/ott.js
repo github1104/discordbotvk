@@ -4,9 +4,10 @@ const { stripIndents } = require("common-tags");
 
 
 const fs = require("fs");
-
+const listlevel = require("../../data/configlevel.json")
+ 
 var thisUser;
-
+var listUser = require("../../data/user.json")
 const chooseArr = ["✌", "👊", "✋"];
 module.exports = {
     name: "ott",

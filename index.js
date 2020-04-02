@@ -1,8 +1,7 @@
 const { Client, MessageEmbed, Collection } = require('discord.js');
 const { prefix } = require('./config.json')
 const fs = require("fs");
-const listlevel = require("../../data/configlevel.json")
-var listUser = require("../../data/user.json")
+
 const client = new Client({
     disableEveryone: true
 });
