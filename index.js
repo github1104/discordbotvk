@@ -106,6 +106,7 @@ client.on("message", async message => {
     //         console.log(89, level);
     //     })
     // };
+    message.client.user
 })
 
 client.login(process.env.BOT_TOKEN);

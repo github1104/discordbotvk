@@ -5,7 +5,7 @@ const { stripIndents } = require("common-tags");
 
 const fs = require("fs");
 const listlevel = require("../../data/configlevel.json")
- 
+
 var thisUser;
 var listUser = require("../../data/user.json")
 const chooseArr = ["✌", "👊", "✋"];
@@ -53,33 +53,73 @@ module.exports = {
 
         //define
 
+        let reacted;
+        let userReacted;
+        let mentionReacted;
+        let user;
+        let competitor;
+        let embed = new MessageEmbed()
+        let m;
+        if (args[0]) {
+            user = message.mentions.members.first().user;
+            competitor = user;
 
-        const embed = new MessageEmbed()
-            .setColor("RANDOM")
-            .setFooter(message.member.displayName, message.author.displayAvatarURL({ format: 'png' }))
-            .setDescription(`how to win ${emo}`)
-            .setTimestamp();
-        const m = await message.channel.send(embed);
-        const reacted = await promptMessage(m, message.author, 30, chooseArr, 1);
-        const botChoice = chooseArr[Math.floor(Math.random() * chooseArr.length)];
-        const result = await getResult(reacted, botChoice);
+                embed
+                .setColor("RANDOM")
+                .setFooter(message.member.displayName, message.author.displayAvatarURL({ format: 'png' }))
+                .setDescription(`**${message.author.username}** vs **${competitor.username}**
+                U have 3s to chose`)
+                .setTimestamp();
+            m = await message.channel.send(embed);
+
+            if (!user) return;
+            reacted = await promptMessage(m, message.author, 3, chooseArr, 2, user);
+            reacted.map(r => {
+                if (r.user === user) mentionReacted = r.emoji
+                else userReacted = r.emoji
+            })
+
+        } else {
+            competitor = message.guild.me.user;
+                embed
+                .setColor("RANDOM")
+                .setFooter(message.member.displayName, message.author.displayAvatarURL({ format: 'png' }))
+                .setDescription(`**${message.author.username}** vs **${competitor.username}**
+                U have 3s to chose`)
+                .setTimestamp();
+            m = await message.channel.send(embed);
+            reacted = await promptMessage(m, message.author, 3, chooseArr, 1);
+
+
+
+            userReacted = reacted.map(r => r.emoji)[0]
+            mentionReacted = chooseArr[Math.floor(Math.random() * chooseArr.length)];
+        }
+
+
+        const result = await ottWithBot(userReacted, mentionReacted);
         await m.reactions.removeAll();
 
         if (result === 'win') {
             console.log('win')
             embed
-                .addField('+200exp', `${reacted} vs ${botChoice}`)
-                .setDescription(stripIndents`**Win!** ${emoWin}`)
+                .addField('+200exp', `${userReacted} vs ${mentionReacted}`)
+                .setDescription(stripIndents`**${message.author.username}** Win! ${emoWin}`)
             m.edit(embed);
         } else if (result === 'lose') {
             console.log('lose')
             embed
-                .addField('-50xp', `${reacted} vs ${botChoice}`)
-                .setDescription(stripIndents`**Lose!** ${emoLose}`)
+                .addField('-50xp', `${userReacted} vs ${mentionReacted}`)
+                .setDescription(stripIndents`**${competitor.username}** Win! ${emoLose}`)
+            m.edit(embed);
+        }else if( result === 'timeout'){
+            console.log('timeout')
+            embed
+                .setDescription(stripIndents`Time out! one of two not chose`)
             m.edit(embed);
         } else {
             embed
-                .addField('so lucky', `${reacted} vs ${botChoice}`)
+                .addField('so lucky', `${userReacted} vs ${mentionReacted}`)
                 .setDescription(stripIndents`**Tie!** ${emoTie}`)
             m.edit(embed);
         }
@@ -87,20 +127,24 @@ module.exports = {
 
 
 
-        function getResult(me, clientChose) {
+        function ottWithBot(me, clientChose) {
             if ((me === "✋" && clientChose === "👊") ||
                 (me === "👊" && clientChose === "✌") ||
                 (me === "✌" && clientChose === "✋")) {
                 setUser(listUser, message, 'win', currentLevel, currentExp)
 
                 return "win";
-            } else if (me === clientChose) {
+            } else if (me === clientChose && me ) {
                 return "tie"
+            }else if(!me || !competitor){
+                return "timeout";
             } else {
                 setUser(listUser, message, 'lose', currentLevel, currentExp)
                 return "lose";
             }
         }
+
+
     }
 }
 

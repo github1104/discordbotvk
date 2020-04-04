@@ -2,11 +2,20 @@
   {},
   {
     "name": "be xiu nhung vua tim a",
-    "level": 5,
-    "exp": 650,
+    "level": 8,
+    "exp": 750,
     "rank": "Iron",
-    "win": 5,
-    "lose": 7,
-    "winrate": 41
+    "win": 17,
+    "lose": 63,
+    "winrate": 21
+  },
+  {
+    "name": "beSa",
+    "level": 1,
+    "exp": 0,
+    "rank": "Iron",
+    "win": 0,
+    "lose": 3,
+    "winrate": 0
   }
 ]

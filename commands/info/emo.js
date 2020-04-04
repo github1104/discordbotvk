@@ -17,6 +17,7 @@ module.exports = {
         }
 
         // console.log(args[0].split(/:/))
+        
         let emo = await getEmojiByName(client,args[0],'emojiSeverLol');
 
         if(emo.length < 1) return message.reply('Cant find that emoji')
